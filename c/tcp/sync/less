@@ -1,0 +1,52 @@
+server.c: In function ‘main’:
+server.c:25:16: error: passing argument 1 of ‘memset’ makes pointer from integer without a cast [-Wint-conversion]
+   25 |         memset(sizeof(socket_info), 0, &socket_info);
+      |                ^~~~~~~~~~~~~~~~~~~
+      |                |
+      |                long unsigned int
+In file included from server.c:4:
+/usr/include/string.h:61:28: note: expected ‘void *’ but argument is of type ‘long unsigned int’
+   61 | extern void *memset (void *__s, int __c, size_t __n) __THROW __nonnull ((1));
+      |                      ~~~~~~^~~
+server.c:25:40: error: passing argument 3 of ‘memset’ makes integer from pointer without a cast [-Wint-conversion]
+   25 |         memset(sizeof(socket_info), 0, &socket_info);
+      |                                        ^~~~~~~~~~~~
+      |                                        |
+      |                                        struct sockaddr_in *
+/usr/include/string.h:61:49: note: expected ‘size_t’ {aka ‘long unsigned int’} but argument is of type ‘struct sockaddr_in *’
+   61 | extern void *memset (void *__s, int __c, size_t __n) __THROW __nonnull ((1));
+      |                                          ~~~~~~~^~~
+server.c:29:32: error: implicit declaration of function ‘honts’ [-Wimplicit-function-declaration]
+   29 |         socket_info.sin_port = honts(9999);
+      |                                ^~~~~
+server.c:33:32: error: passing argument 2 of ‘bind’ from incompatible pointer type [-Wincompatible-pointer-types]
+   33 |         if(bind(server_socket, &socket_info, sizeof(socket_info)) != 0) {
+      |                                ^~~~~~~~~~~~
+      |                                |
+      |                                struct sockaddr_in *
+In file included from server.c:2:
+/usr/include/x86_64-linux-gnu/sys/socket.h:112:49: note: expected ‘const struct sockaddr *’ but argument is of type ‘struct sockaddr_in *’
+  112 | extern int bind (int __fd, __CONST_SOCKADDR_ARG __addr, socklen_t __len)
+      |                                                 ^
+server.c:47:47: error: passing argument 2 of ‘accept’ from incompatible pointer type [-Wincompatible-pointer-types]
+   47 |         connection_fd = accept(server_socket, &incoming_info, sizeof(incoming_info));
+      |                                               ^~~~~~~~~~~~~~
+      |                                               |
+      |                                               struct sockaddr_in *
+/usr/include/x86_64-linux-gnu/sys/socket.h:306:45: note: expected ‘struct sockaddr * restrict’ but argument is of type ‘struct sockaddr_in *’
+  306 | extern int accept (int __fd, __SOCKADDR_ARG __addr,
+      |                                             ^
+server.c:47:63: error: passing argument 3 of ‘accept’ makes pointer from integer without a cast [-Wint-conversion]
+   47 |         connection_fd = accept(server_socket, &incoming_info, sizeof(incoming_info));
+      |                                                               ^~~~~~~~~~~~~~~~~~~~~
+      |                                                               |
+      |                                                               long unsigned int
+/usr/include/x86_64-linux-gnu/sys/socket.h:307:42: note: expected ‘socklen_t * restrict’ {aka ‘unsigned int * restrict’} but argument is of type ‘long unsigned int’
+  307 |                    socklen_t *__restrict __addr_len);
+      |                    ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~
+server.c:56:20: error: too few arguments to function ‘recv’
+   56 |                 if(recv(connection_fd, (void*)&raw_data, sizeof(raw_data)) < -1) {
+      |                    ^~~~
+/usr/include/x86_64-linux-gnu/sys/socket.h:145:16: note: declared here
+  145 | extern ssize_t recv (int __fd, void *__buf, size_t __n, int __flags);
+      |                ^~~~
