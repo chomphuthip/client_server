@@ -1,10 +1,12 @@
-
 ```
+.
 ├── c
 │   ├── tcp
 │   │   ├── async
 │   │   │   ├── server
-│   │   │   └── server.c
+│   │   │   ├── server.c
+│   │   │   ├── server_poll
+│   │   │   └── server_poll.c
 │   │   └── sync
 │   │       ├── client
 │   │       ├── client.c
@@ -49,3 +51,4 @@ basic implementations of TCP/UDP servers
      2. pop from queue and convert to host byte order (little endian)
      3. add to sum and print to screen
      4. restart loop and wait on signal. thread should never be awake when main thread is pushing
+
